@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- moustache 小胡子语法 表达式 可以放赋值 取值 三元 -->
+        {{name}}
+    </div>
+</body>
+
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        //获取element元素
+        el: '#app',
+        //存储的数据
+        data: {
+            name: "hello world"
+        },
+        //自定义指令
+        directives: {
+
+        },
+        //自定义过滤器(this指向window)
+        filters: {
+
+        },
+        //计算属性(如果没写get和set,默认执行get方法)
+        computed: {
+
+        },
+        //存储的函数方法(this指向的都是data里面的实例，尽量不使用箭头函数)
+        methods: {
+            getData() {
+                axios.get('./carts.json').then(res => {
+                    this.products = res.data;
+                }, err => {
+                    console.log(err);
+                });
+            }
+        },
+        //专门用来发送ajax的方法
+        created() {//数据被初始化后会调用，this指向vm实例，钩子函数
+            this.getData();
+        }
+    });
+</script>
+
+</html>
