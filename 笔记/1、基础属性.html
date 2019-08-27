@@ -12,6 +12,9 @@
     <div id="app">
         <!-- moustache 小胡子语法 表达式 可以数学运算 字符串拼接 三元 -->
         {{name}}
+        <!-- 自定义过滤器 -->
+        {{a | toFixed(3)}}
+        {{b | addZero}}<!-- 没有参数可以不加括号 -->
     </div>
 </body>
 
@@ -22,7 +25,9 @@
         el: '#app',
         //存储的数据
         data: {
-            name: "hello world"
+            name: "hello world",
+            a: 20.5859,
+            b: 3
         },
         //自定义指令
         directives: {
@@ -30,7 +35,14 @@
         },
         //自定义过滤器(this指向window)
         filters: {
-
+            toFixed(num,val){
+                // 第一个形参代表管道符前面的值
+                // 第二个形参代表管道符后面值括号里的实参实参
+                return num.toFixed(val)
+            },
+            addZero(val){
+                return val<10?"0"+val:val
+            }
         },
         //计算属性(如果没写get和set,默认执行get方法)
         computed: {
@@ -47,7 +59,7 @@
             }
         },
         //专门用来发送ajax的方法
-        created() {//数据被初始化后会调用，this指向vm实例，钩子函数
+        created() {//数据被初始化后会调用，this指向vm里面的实例，钩子函数
             this.getData();
         }
     });
