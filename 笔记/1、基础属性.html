@@ -15,10 +15,13 @@
         <!-- 自定义过滤器 -->
         {{a | toFixed(3)}}
         {{b | addZero}}<!-- 没有参数可以不加括号 -->
+        <!-- axios -->
+        <div v-for="a in products">{{a.productName}}</div>
     </div>
 </body>
 
 <script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
 <script>
     let vm = new Vue({
         //获取element元素
@@ -27,7 +30,8 @@
         data: {
             name: "hello world",
             a: 20.5859,
-            b: 3
+            b: 3,
+            products:[]
         },
         //自定义指令
         directives: {
@@ -51,8 +55,8 @@
         //存储的函数方法(this指向的都是data里面的实例，尽量不使用箭头函数)
         methods: {
             getData() {
-                axios.get('./carts.json').then(res => {
-                    this.products = res.data;
+                axios.get('./carts.json').then(data => {
+                    this.products = data.data;
                 }, err => {
                     console.log(err);
                 });
