@@ -26,7 +26,10 @@
     // }
 // 7、v-bind：
     // v-bind 缩写 ：
-    // <div :class = {x:true}></div>
+    // 值可以是数组，对象，字符串
+    // <div :class = {x:true}></div> 对象情况下第二个参数为出执行第一个参数
+    // <div :class = [x,y]></div> 数组情况下多个css样式组合在一起
+    // <div :style = []>
     // 将行内属性转换为动态属性，去获取data中的数据
 // 8、v-model:
     // 双向绑定,一般用于表单元素
