@@ -19,6 +19,7 @@
         <!-- axios -->
         <div v-for="a in products">{{a.productName}}</div>
         <input type="text" v-model="value">
+        <div v-drag></div>
     </div>
 </body>
 
@@ -38,7 +39,10 @@
         },
         // 自定义指令
         directives: {
-
+            // 在html中调用自定义指令需要在方法前面输入: v-,例如：v-drag
+            drag(ele){
+                // 形参代表有该指令的元素
+            }
         },
         // 自定义过滤器(this指向window)
         filters: {
