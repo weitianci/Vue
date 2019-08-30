@@ -14,9 +14,11 @@
         {{name}}
         <!-- 自定义过滤器 -->
         {{a | toFixed(3)}}
-        {{b | addZero}}<!-- 没有参数可以不加括号 -->
+        {{b | addZero}}
+        <!-- 没有参数可以不加括号 -->
         <!-- axios -->
         <div v-for="a in products">{{a.productName}}</div>
+        <input type="text" v-model="value">
     </div>
 </body>
 
@@ -24,35 +26,64 @@
 <script src="../node_modules/axios/dist/axios.js"></script>
 <script>
     let vm = new Vue({
-        //获取element元素
+        // 获取element元素
         el: '#app',
-        //存储的数据
+        // 存储的数据
         data: {
             name: "hello world",
             a: 20.5859,
             b: 3,
-            products:[]
+            products: [],
+            value: 100
         },
-        //自定义指令
+        // 自定义指令
         directives: {
 
         },
-        //自定义过滤器(this指向window)
+        // 自定义过滤器(this指向window)
         filters: {
-            toFixed(num,val){
+            toFixed(num, val) {
                 // 第一个形参代表管道符前面的值
                 // 第二个形参代表管道符后面值括号里的实参实参
                 return num.toFixed(val)
             },
-            addZero(val){
-                return val<10?"0"+val:val
+            addZero(val) {
+                return val < 10 ? "0" + val : val
             }
         },
-        //计算属性(如果没写get和set,默认执行get方法)
-        computed: {
-
+        // 监听属性（支持异步）
+        watch: {
+            // 当一个属性改变，会引发多个操作时，用watch，一对多
+            // 监听data中现有的属性
+            value: {
+                handler(newVal, oldVal) {
+                    console.log(newVal) // 改变之前的值
+                    console.log(oldVal) // 改变之后的值
+                },
+                // 可以让该函数在初始化时立即执行
+                immediate: true,
+                // 让其进行深度监听，对对象每一个属性进行监听
+                deep: true
+            }
         },
-        //存储的函数方法(this指向的都是data里面的实例，尽量不使用箭头函数)
+        // 计算属性(不支持异步)
+        computed: {
+            // 当一个属性依赖多个属性进行变化，那么用computed，多对一；
+            // 默认走缓存，节省性能
+            // 当依赖的属性发生改变，会立即执行get方法，重新计算当前的属性，并且会重新渲染视图
+            // 如果当前的属性是函数的形式,那么会默认执行get，不会执行set
+            fun: {
+                get() {
+                    // 当使用fun时,就会触发get方法，不管引用多少次，该函数获取时只执行一次
+                    // 当依赖的属性改变时，也会执行该get方法
+                },
+                set(val) {
+                    // 0 v c默认将最新的设置的值传给第一个形参
+                    // 当改变val值时,就会触发set方法
+                }
+            }
+        },
+        // 存储的函数方法(this指向的都是data里面的实例，尽量不使用箭头函数)
         methods: {
             getData() {
                 axios.get('./carts.json').then(data => {
@@ -62,8 +93,8 @@
                 });
             }
         },
-        //专门用来发送ajax的方法
-        created() {//数据被初始化后会调用，this指向vm里面的实例，钩子函数
+        // 专门用来发送ajax的方法
+        created() {// 数据被初始化后会调用，this指向vm里面的实例，钩子函数
             this.getData();
         }
     });
