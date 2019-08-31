@@ -9,4 +9,10 @@
 // $emit : 发布
 // $off : 移出
 // $forceUpdate: 强制更新，不能在beforeUpdate和updated使用，会递归
-// $nextTick
+// $nextTick：
+    // 当数组发生了改变之后，DOM需要重新渲染刷新，但是DOM渲染是异步的，下面的代码不会等到DOM渲染完毕再往下运行；
+    // VUE中DOM的渲染是异步的；
+    // $nextTick也需要传递一个回调函数；会当真实的DOM异步加载完毕，会立即执行$nextTick绑定的回调函数；
+    // this.$nextTick(()=>{
+    //     console.log(this.$refs.oLis.length);
+    // });
