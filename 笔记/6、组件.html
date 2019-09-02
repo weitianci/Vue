@@ -12,7 +12,8 @@
     <div id="app">
         <!-- <hand/> -->
         <!-- <son></son> -->
-        <parent></parent>
+        <!-- <parent></parent> -->
+        <child :m="msg"></child>
     </div>
 </body>
 <script src="../node_modules/vue/dist/vue.js"></script>
@@ -29,7 +30,7 @@
     // 全局组件可以在任何的vm实例中使用；
     // 每一个组件都相当于一个vue的实例，当调用这个组件时，就会生成vue的生命周期；调用几次，生命周期的钩子函数执行几次；
     
-    // 全局组件
+    // 1、全局组件
     // Vue.component("hand", {
     //     data(){
     //         return {name:"全局组件"}
@@ -40,7 +41,7 @@
     //     template:"<div>{{name}}</div>"
     // });
 
-    // 局部组件
+    // 2、局部组件
         // 1. 创建一个组件
         // 2. 注册组件
         // 3. 使用组件
@@ -57,38 +58,102 @@
     //     template:"<div>{{name}}</div>"
     // }
 
-    // 组件嵌套
+    // 3、组件嵌套
         // 子组件在父组件中注册
         // 组件和组件之间可以实现嵌套，但是子组件需要在父组件的components属性中进行注册，才可以使用，DOM中组件不要嵌套，每个组件都有自己的生命周期
-    let son = {
+    // let son = {
+    //     data(){
+    //         // 方法中的this指向当前组件的实例
+    //         return{
+    //             name:"组件嵌套"
+    //         }
+    //     },
+    //     template:"<div>{{name}}</div>"
+    // };
+    // let parent = {
+    //     data(){
+    //         return{
+    //             age:10
+    //         }
+    //     },
+    //     components:{
+    //         son
+    //     },
+    //     template:"<div>{{age}}<son></son></div>"
+    // }
+
+    // let vm = new Vue({
+    //     el: '#app',
+    //     data: {
+            
+    //     },
+    //     components:{ // 注册局部组件
+    //         son,
+    //         parent
+    //     }
+    // });
+
+    // 4、组件之间数据的传递：
+        // VUE中的数据传递是单向的；
+        // 父传子  2. 子传父（发布订阅实现） 3. 兄弟之间传递
+    // 1.创建组件
+    // 2. 注册组件
+    // 3. 使用组件
+        // child是vm的一个子组件；
+        // template: 只能获取当前实例data或methods中的属性；
+        // 如何让子组件获取到父组件中的数据？
+    // let child = {
+    //     data(){
+    //         return {
+    //             num:100,
+    //         }
+    //     },
+    //     props:["m"],// props中放的是动态属性的属性名
+    //     template:"<div>{{m}}</div>"// 和props对应；
+    // }
+    // let vm = new Vue({
+    //     el:"#app",
+    //     data:{
+    //         msg:"珠峰",
+    //         hh:"培训"
+    //     },
+    //     components:{
+    //         child
+    //     }
+    // })
+
+    // 5、props验证
+        // 1. 把父组件的数据以动态属性的方式当在子组件的行间属性上；
+        // 2. 在子组件中用props这个属性接收，（对象、数组）
+        // 3. 在子组件中使用动态的属性名保持一致；
+    let child = {
         data(){
-            // 方法中的this指向当前组件的实例
-            return{
-                name:"组件嵌套"
+            return {
+                num:100,
             }
         },
-        template:"<div>{{name}}</div>"
-    };
-    let parent = {
-        data(){
-            return{
-                age:10
+        props:{
+            m:{
+                type:[Number,String],// type:对传递过来的数据进行验证
+                //  required:true,// 这是必须传递的属性
+                //default:200,// 这是一个默认值
+                validator(val){
+                    // console.log(val);\
+                    // 如果这个函数返回一个布尔值，如果是true，没有问题，如果是false，那么会抛出异常
+                    return [1,2,3].indexOf(val)!==-1;
+                }
             }
+        },// props中放的是动态属性的属性名
+        template:"<div>{{m}}</div>"// 和props对应；
+    }
+    let vm = new Vue({
+        el:"#app",
+        data:{
+            msg:99,
+            hh:"培训"
         },
         components:{
-            son
-        },
-        template:"<div>{{age}}<son></son></div>"
-    }
-
-    let vm = new Vue({
-        el: '#app',
-        data: {
-            
-        },
-        components:{ // 注册局部组件
-            son,
-            parent
+            child
         }
     });
 </script>
