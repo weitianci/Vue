@@ -10,8 +10,9 @@
 
 <body>
     <div id="app">
-        <hand/>
-        <son></son>
+        <!-- <hand/> -->
+        <!-- <son></son> -->
+        <parent></parent>
     </div>
 </body>
 <script src="../node_modules/vue/dist/vue.js"></script>
@@ -29,31 +30,55 @@
     // 每一个组件都相当于一个vue的实例，当调用这个组件时，就会生成vue的生命周期；调用几次，生命周期的钩子函数执行几次；
     
     // 全局组件
-    Vue.component("hand", {
-        data(){
-            return {name:"全局组件"}
-        },
-        methods: {
+    // Vue.component("hand", {
+    //     data(){
+    //         return {name:"全局组件"}
+    //     },
+    //     methods: {
             
-        },
-        template:"<div>{{name}}</div>"
-    });
+    //     },
+    //     template:"<div>{{name}}</div>"
+    // });
 
     // 局部组件
         // 1. 创建一个组件
         // 2. 注册组件
         // 3. 使用组件
+    // let son = {
+    //     data(){
+    //         // 方法中的this指向当前组件的实例
+    //         return{
+    //             name:"局部组件"
+    //         }
+    //     },
+    //     methods: {
+            
+    //     },
+    //     template:"<div>{{name}}</div>"
+    // }
+
+    // 组件嵌套
+        // 子组件在父组件中注册
+        // 组件和组件之间可以实现嵌套，但是子组件需要在父组件的components属性中进行注册，才可以使用，DOM中组件不要嵌套，每个组件都有自己的生命周期
     let son = {
         data(){
             // 方法中的this指向当前组件的实例
             return{
-                name:"局部组件"
+                name:"组件嵌套"
             }
         },
-        methods: {
-            
-        },
         template:"<div>{{name}}</div>"
+    };
+    let parent = {
+        data(){
+            return{
+                age:10
+            }
+        },
+        components:{
+            son
+        },
+        template:"<div>{{age}}<son></son></div>"
     }
 
     let vm = new Vue({
@@ -62,7 +87,8 @@
             
         },
         components:{ // 注册局部组件
-            son
+            son,
+            parent
         }
     });
 </script>
