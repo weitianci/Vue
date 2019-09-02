@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <hand/>
+        <son></son>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    // 单页面应用： 框架一般使用开发大型的单页面（SPA）应用;整个项目只有一个页面，其他页面全部通过路由方式进行切换；
+    // 组件： 组件化开发；把相同功能结构的代码封装成一个组件中，当想使用这个结构时，直接调用这个组件；
+    // 把一个页面拆分成好几个组件；
+    // 注册组件（全局组件和局部组件不能同时存在）：1. 全局组件  2. 局部组件
+    // 在Vue的属性上一个component函数，执行就可以创建一个组件；接收两个参数，第一个参数叫组件名，第二个参数对象
+    // 在组件中，data必须是一个函数
+    // 1. 组件的名字首字母可以大写
+    // 2. 标签不支持驼峰命名，如果是驼峰，需要加-;
+    // 3. 不能使用内置的标签名；
+    // 全局组件可以在任何的vm实例中使用；
+    // 每一个组件都相当于一个vue的实例，当调用这个组件时，就会生成vue的生命周期；调用几次，生命周期的钩子函数执行几次；
+    
+    // 全局组件
+    Vue.component("hand", {
+        data(){
+            return {name:"全局组件"}
+        },
+        methods: {
+            
+        },
+        template:"<div>{{name}}</div>"
+    });
+
+    // 局部组件
+        // 1. 创建一个组件
+        // 2. 注册组件
+        // 3. 使用组件
+    let son = {
+        data(){
+            // 方法中的this指向当前组件的实例
+            return{
+                name:"局部组件"
+            }
+        },
+        methods: {
+            
+        },
+        template:"<div>{{name}}</div>"
+    }
+
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            
+        },
+        components:{ // 注册局部组件
+            son
+        }
+    });
+</script>
+
+</html>
