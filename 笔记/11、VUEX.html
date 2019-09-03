@@ -42,7 +42,7 @@
         // map
         computed:Vuex.mapState(["shop"]),
         // 通过$store进行取值；
-        template:"<div >{{this.$store.state.count}}<button @click='add'>添加</button><li v-for='a in this.shop'>{{a.name}}</li></div>"
+        template:"<div>{{this.$store.state.count}}<button @click='add'>添加</button><li v-for='a in this.shop'>{{a.name}}</li></div>"
     }
     let second = {
         data(){
