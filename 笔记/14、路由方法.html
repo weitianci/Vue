@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/home" tag="button">首页</router-link>
+        <router-link to="/list" tag="button">列表页</router-link>
+        <router-view></router-view>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+// $router
+    // 1、push      
+        // 参数：地址
+        // 作用：跳转到对应地址的路由上
+    // 2、back
+        // 参数：无
+        // 作用：返回上一个路径上
+    // 3、go（-n）  
+        // 参数：数字
+        // 作用：返回第n次的路径
+
+// $route
+    // params
+    // 参数：创建路径时地址+：+id，调用时.id
+    // 作用：动态改变路由
+    let home = {
+        methods: {
+            goList(){
+                // this指向当前的组件，由于这个组件是通过路由渲染出来的
+                this.$router.push("/list")
+            }
+        },
+        template: "<div><button @click='goList'>去列表页</button></div>"
+    };
+    let list = {
+        methods: {
+            goBack(){
+                this.$router.back()
+            }
+        },
+        template: "<div><button @click='goBack'>返回首页</button></div>"
+    };
+    let routes = [{ path: "/", component: home },{ path: "/home", component: home }, { path: "/list", component: list }];
+    let router = new VueRouter({
+        routes
+    });
+    let vm = new Vue({
+        el: '#app',
+        data: {
+    
+        },
+        router
+    });
+</script>
+</html>
