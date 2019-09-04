@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/home" tag="button">首页</router-link>
+        <router-link to="/login" tag="button">登录页</router-link>
+        <router-view></router-view>
+    </div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    let home = {
+        data() {
+            return {
+                con: "首页"
+            }
+        },
+        template: "<div>{{con}}</div>"
+    };
+    let login = {
+        data() {
+            return {
+                logo: "登录"
+            }
+        },
+        template: "<div>{{logo}}</div>"
+    };
+    let routes = [{ path: "/home", component: home }, { path: "/login", component: login }];
+    let router = new VueRouter({
+        routes: routes
+    });
+    let vm = new Vue({
+        el: '#app',
+        data: {
+    
+        },
+        router
+    });
+</script>
+</html>
