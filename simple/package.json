@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "div": "webpack-cli --entry ./app/main.js --output ./public/bundle.js",
+    "build": "webpack",
+    "server": "webpack-dev-server --open"
   },
   "keywords": [],
   "author": "",
