@@ -20,8 +20,12 @@ module.exports = {
         rules: [
             {
                 test: /(\.jsx|\.js)$/, // 用正则匹配出要用loader的文件筛选出
-                use: "babel-loader", // use要是用的loader
+                use: ["babel-loader"], // use要是用的loader
                 exclude:"/node_modules" // 这个文件夹中的js文件不需要用该loader处理
+            },
+            {
+                test:/\.css$/,
+                use: ["style-loader","css-loader"], 
             }
         ]
     }

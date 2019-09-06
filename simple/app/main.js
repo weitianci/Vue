@@ -4,4 +4,5 @@ let fn = ()=>{
 
 };
 fn();
+import"../css/main.css";
 document.getElementById("root").appendChild(gre());
